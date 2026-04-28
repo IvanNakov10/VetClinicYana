@@ -33,13 +33,12 @@ namespace VetClinic.Data
                 entity.Property(o => o.PhoneNumber).IsRequired().HasMaxLength(20);
                 entity.Property(o => o.Email).HasMaxLength(200);
 
-                // One Owner → One Address (Owner holds the FK)
+                // FIXED: One Address → Many Owners
                 entity.HasOne(o => o.Address)
-                      .WithOne(a => a.Owner)
-                      .HasForeignKey<Owner>(o => o.AddressId)
+                      .WithMany(a => a.Owners)
+                      .HasForeignKey(o => o.AddressId)
                       .OnDelete(DeleteBehavior.SetNull);
 
-                // One Owner → Many Animals
                 entity.HasMany(o => o.Animals)
                       .WithOne(a => a.Owner)
                       .HasForeignKey(a => a.OwnerId)

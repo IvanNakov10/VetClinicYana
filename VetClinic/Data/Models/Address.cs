@@ -16,6 +16,6 @@
         public string PostalCode { get; set; } = string.Empty;
 
         // Navigation property: one Address → one Owner
-        public Owner? Owner { get; set; }
+        public ICollection<Owner> Owners { get; set; } = new List<Owner>(); 
     }
 }
